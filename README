@@ -1,0 +1,6 @@
+Just a try of wrapping a head around the DCI architecture through examples in .NET 4.0.
+
+Links:
+	- DCI Architecure:	http://www.artima.com/articles/dci_vision.html
+	- DCI in C#:		http://horsdal.blogspot.com/2009/05/dci-in-c.html
+	- More DCI samples:	http://groups.google.com/group/object-composition/files
