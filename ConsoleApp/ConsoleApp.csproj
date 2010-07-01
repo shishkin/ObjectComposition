@@ -43,10 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Banking\CheckBalance.cs" />
-    <Compile Include="Banking\TransferMoney.cs" />
-    <Compile Include="ObjectComposition\Entity.cs" />
-    <Compile Include="ObjectComposition\Role.cs" />
+    <Compile Include="DynamicDataExample.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticRolesExample.cs" />
