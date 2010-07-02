@@ -12,6 +12,9 @@ namespace DataContextInteraction
 
             Console.WriteLine("\n\nStatic roles example:");
             StaticRolesExample.Run();
+
+            Console.WriteLine("\n\nMEF example:");
+            CompositionExample.Sample.Run();
         }
     }
 }
