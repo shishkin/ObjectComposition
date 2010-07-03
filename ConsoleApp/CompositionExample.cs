@@ -28,6 +28,9 @@ namespace DataContextInteraction.CompositionExample
         }
     }
 
+    /// <summary>
+    /// Dumb entity data object.
+    /// </summary>
     [Export]
     public class Account
     {
@@ -40,6 +43,9 @@ namespace DataContextInteraction.CompositionExample
         }
     }
 
+    /// <summary>
+    /// Immutable value object.
+    /// </summary>
     public class AccountOperation
     {
         public AccountOperation(decimal amount, string description)
@@ -56,6 +62,9 @@ namespace DataContextInteraction.CompositionExample
         public DateTime Timestamp { get; private set; }
     }
 
+    /// <summary>
+    /// Role based directly on the entity.
+    /// </summary>
     [Export]
     public class AccountWithBalance
     {
@@ -68,6 +77,9 @@ namespace DataContextInteraction.CompositionExample
         }
     }
 
+    /// <summary>
+    /// Role based on entity and on another role.
+    /// </summary>
     [Export]
     public class WithdrawableAccount
     {
@@ -88,6 +100,9 @@ namespace DataContextInteraction.CompositionExample
         }
     }
 
+    /// <summary>
+    /// Context.
+    /// </summary>
     [Export]
     public class CashWithdrawal
     {
@@ -103,6 +118,9 @@ namespace DataContextInteraction.CompositionExample
         }
     }
 
+    /// <summary>
+    /// Role.
+    /// </summary>
     [Export]
     public class ReportingAccount
     {
@@ -125,6 +143,9 @@ namespace DataContextInteraction.CompositionExample
         }
     }
 
+    /// <summary>
+    /// "Fx".
+    /// </summary>
     public class Composer
     {
         private static readonly ComposablePartCatalog Catalog =
