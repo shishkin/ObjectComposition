@@ -10,6 +10,24 @@ namespace DataContextInteraction.CompositionExample
     using System.ComponentModel.Composition.Primitives;
     using System.Reflection;
 
+    public class Sample
+    {
+        public static void Run()
+        {
+            var composer = new Composer();
+            
+            var account = new Account(300);
+            var reporter = composer.Cast<ReportingAccount>(account); 
+
+            reporter.ReportBalance();
+            
+            composer.Compose<CashWithdrawal>(account, 120m).Trigger();
+            
+            reporter.ReportBalance();
+            reporter.ReportOperations();
+        }
+    }
+
     [Export]
     public class Account
     {
@@ -142,24 +160,6 @@ namespace DataContextInteraction.CompositionExample
                 { "ExportTypeIdentity", typeIdentity }
             };
             return batch.AddExport(new Export(contractName, metadata, () => exportedValue));
-        }
-    }
-
-    public class Sample
-    {
-        public static void Run()
-        {
-            var composer = new Composer();
-            
-            var account = new Account(300);
-            var reporter = composer.Cast<ReportingAccount>(account); 
-
-            reporter.ReportBalance();
-            
-            composer.Compose<CashWithdrawal>(account, 120m).Trigger();
-            
-            reporter.ReportBalance();
-            reporter.ReportOperations();
         }
     }
 }
