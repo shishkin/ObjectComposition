@@ -82,15 +82,13 @@ namespace DataContextInteraction.CompositionExample
         {
             var entity = new Account();
             entity.Operations.Add(new AccountOperation(300, "init"));
-            var context = new CashWithdrawal
-            {
-                amount = 100m
-            };
+            var context = new CashWithdrawal();
 
             var catalog = new AssemblyCatalog(Assembly.GetExecutingAssembly());
             var container = new CompositionContainer(catalog);
             var batch = new CompositionBatch();
             batch.AddPart(entity);
+            batch.AddExportedValue(100m);
             batch.AddPart(context);
             container.Compose(batch);
 
