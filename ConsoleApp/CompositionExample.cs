@@ -68,6 +68,7 @@ namespace DataContextInteraction.CompositionExample
         }
     }
 
+    [Export]
     public class CashWithdrawal
     {
         [Import]
@@ -82,22 +83,26 @@ namespace DataContextInteraction.CompositionExample
         }
     }
 
+
+
     public class Sample
     {
         public static void Run()
         {
             var entity = new Account(300);
-            var context = new CashWithdrawal();
 
             var catalog = new AssemblyCatalog(Assembly.GetExecutingAssembly());
             var container = new CompositionContainer(catalog);
             var batch = new CompositionBatch();
             batch.AddPart(entity);
             batch.AddExportedValue(100m);
-            batch.AddPart(context);
             container.Compose(batch);
+            var context = container.GetExportedValue<CashWithdrawal>();
 
             context.Trigger();
+
+            entity.Operations.ToList()
+                .ForEach(x => Console.WriteLine("{0:c} {1}", x.Amount, x.Description));
         }
     }
 }
