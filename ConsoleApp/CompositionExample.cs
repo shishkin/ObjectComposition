@@ -68,7 +68,8 @@ namespace DataContextInteraction.CompositionExample
         [Import]
         private WithdrawableAccount account;
 
-        public decimal amount;
+        [Import]
+        private decimal amount;
 
         public void Trigger()
         {
