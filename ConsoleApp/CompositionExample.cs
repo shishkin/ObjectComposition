@@ -85,6 +85,28 @@ namespace DataContextInteraction.CompositionExample
         }
     }
 
+    [Export]
+    public class ReportingAccount
+    {
+        [Import]
+        private Account account;
+
+        [Import]
+        private AccountWithBalance balance;
+
+        public void ReportBalance()
+        {
+            Console.WriteLine("Balance: {0:c}", balance.Balance);
+        }
+
+        public void ReportOperations()
+        {
+            Console.WriteLine("Account operations:");
+            account.Operations.ToList()
+                .ForEach(x => Console.WriteLine("\t{0:c} {1}", x.Amount, x.Description));
+        }
+    }
+
     public class Composer
     {
         private static readonly ComposablePartCatalog Catalog =
@@ -127,18 +149,17 @@ namespace DataContextInteraction.CompositionExample
     {
         public static void Run()
         {
-            var entity = new Account(300);
-
             var composer = new Composer();
+            
+            var account = new Account(300);
+            var reporter = composer.Cast<ReportingAccount>(account); 
 
-            Console.WriteLine("Balance: {0:c}", composer.Cast<AccountWithBalance>(entity).Balance);
-
-            composer.Compose<CashWithdrawal>(entity, 120m).Trigger();
-
-            Console.WriteLine("Balance: {0:c}", composer.Cast<AccountWithBalance>(entity).Balance);
-
-            entity.Operations.ToList()
-                .ForEach(x => Console.WriteLine("{0:c} {1}", x.Amount, x.Description));
+            reporter.ReportBalance();
+            
+            composer.Compose<CashWithdrawal>(account, 120m).Trigger();
+            
+            reporter.ReportBalance();
+            reporter.ReportOperations();
         }
     }
 }
