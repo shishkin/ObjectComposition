@@ -100,6 +100,14 @@ namespace DataContextInteraction.CompositionExample
             return container.GetExportedValue<T>();
         }
 
+        public T Cast<T>(object entity, params object[] dependencies)
+        {
+            return Compose<T>(
+                Enumerable.Repeat(entity, 1)
+                .Concat(dependencies)
+                .ToArray());
+        }
+
         /// <summary>
         /// I wish MEF provided this method out of the box.
         /// </summary>
@@ -123,7 +131,11 @@ namespace DataContextInteraction.CompositionExample
 
             var composer = new Composer();
 
+            Console.WriteLine("Balance: {0:c}", composer.Cast<AccountWithBalance>(entity).Balance);
+
             composer.Compose<CashWithdrawal>(entity, 120m).Trigger();
+
+            Console.WriteLine("Balance: {0:c}", composer.Cast<AccountWithBalance>(entity).Balance);
 
             entity.Operations.ToList()
                 .ForEach(x => Console.WriteLine("{0:c} {1}", x.Amount, x.Description));
