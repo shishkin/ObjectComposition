@@ -13,6 +13,11 @@ namespace DataContextInteraction.CompositionExample
     {
         public Collection<AccountOperation> Operations =
             new Collection<AccountOperation>();
+
+        public Account(decimal initialDeposit)
+        {
+            Operations.Add(new AccountOperation(initialDeposit, "Initial deposit"));
+        }
     }
 
     public class AccountOperation
@@ -81,8 +86,7 @@ namespace DataContextInteraction.CompositionExample
     {
         public static void Run()
         {
-            var entity = new Account();
-            entity.Operations.Add(new AccountOperation(300, "init"));
+            var entity = new Account(300);
             var context = new CashWithdrawal();
 
             var catalog = new AssemblyCatalog(Assembly.GetExecutingAssembly());
