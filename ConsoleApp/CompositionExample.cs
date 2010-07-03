@@ -17,7 +17,7 @@ namespace DataContextInteraction.CompositionExample
             var composer = new Composer();
             
             var account = new Account(300);
-            var reporter = composer.Cast<ReportingAccount>(account); 
+            var reporter = composer.CastTo<ReportingAccount>(account); 
 
             reporter.ReportBalance();
             
@@ -140,7 +140,7 @@ namespace DataContextInteraction.CompositionExample
             return container.GetExportedValue<T>();
         }
 
-        public T Cast<T>(object entity, params object[] dependencies)
+        public T CastTo<T>(object entity, params object[] dependencies)
         {
             return Compose<T>(
                 Enumerable.Repeat(entity, 1)
